@@ -14,7 +14,7 @@ on:
         description: "Path to the settings file"
         required: false
         type: string
-        default: "settings.yml"
+        default: "settings.yaml"
       docker-file-path:
         description: "Path to the Dockerfile"
         required: false
@@ -65,3 +65,17 @@ jobs:
         with:
           name: pytest-results
           path: test-results.xml
+
+  create-pr:
+    name: Create Pull Request to Main
+    runs-on: ${{ inputs.runs-on }}
+    needs:
+      - ci-image
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: pull-request-action
+        uses: vsoch/pull-request-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_BRANCH: "main"

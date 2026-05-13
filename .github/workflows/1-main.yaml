@@ -9,5 +9,5 @@ on:
 jobs:
   publish-image:
     if: github.event.pull_request.merged == true
-    uses: ./.github/workflows/publish.yml
+    uses: ./.github/workflows/publish.yaml
     secrets: inherit
